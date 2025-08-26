@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>X — Sign in / Sign up (Clone)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="shell" id="app" data-mode="signup">
+        <!-- LEFT: X Logo -->
+        <section class="left" aria-hidden="true">
+            <svg class="x-logo" viewBox="0 0 24 24" role="img" aria-label="X logo">
+                <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+        </section>
+
+        <!-- RIGHT: Auth Panel -->
+        <section class="right">
+            <div class="panel">
+                <img src="X.jpg" id="xmark" alt="X">
+                <span class="headlinespan">
+                    <h1 class="headline">Happening now</h1>
+                </span>
+                <p class="sub">Join today.</p>
+
+                <!-- SIGN UP CTA STACK (default) -->
+                <div class="stack" id="cta-stack" aria-live="polite">
+                    <button class="btn" id="btn-google" type="button">
+                        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M21.35 12.18c0-.64-.06-1.25-.18-1.84H12v3.49h5.26a4.5 4.5 0 0 1-1.96 2.95v2.45h3.17c1.86-1.71 2.88-4.24 2.88-7.05Z" />
+                            <path
+                                d="M12 22c2.6 0 4.79-.86 6.39-2.33l-3.17-2.45c-.88.59-2.02.94-3.22.94-2.47 0-4.57-1.67-5.31-3.92H3.36v2.47A9.999 9.999 0 0 0 12 22Z" />
+                            <path
+                                d="M6.69 14.24A6 6 0 0 1 6.38 12c0-.78.14-1.54.31-2.24V7.29H3.36A10 10 0 0 0 2 12c0 1.53.35 2.97.97 4.24l3.72-1.99Z" />
+                            <path
+                                d="M12 6.5c1.41 0 2.68.49 3.68 1.46L18.5 5.2A9.5 9.5 0 0 0 12 2 9.999 9.999 0 0 0 3.36 7.29l3.63 2.47C7.73 8.17 9.72 6.5 12 6.5Z" />
+                        </svg>
+                        <span>Sign up with Google</span>
+                    </button>
+                    <button class="btn" id="btn-apple" type="button">
+                        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M16.36 12.48c.02 2.36 2.08 3.15 2.1 3.16-.02.05-.33 1.14-1.09 2.26-.65.95-1.33 1.9-2.38 1.92-1.03.02-1.36-.62-2.54-.62s-1.54.6-2.51.63c-1.01.02-1.79-1.03-2.45-1.98-1.33-1.93-2.35-5.45-.98-7.83.67-1.17 1.86-1.92 3.16-1.95 1.01-.02 1.96.68 2.54.68.58 0 1.73-.84 2.92-.72.5.02 1.91.2 2.81 1.54-.07.04-1.68.99-1.58 2.91Z" />
+                            <path
+                                d="M14.56 5.3c.54-.66.9-1.58.8-2.5-.77.03-1.69.51-2.24 1.17-.49.57-.92 1.5-.8 2.4.85.07 1.7-.43 2.24-1.07Z" />
+                        </svg>
+                        <span>Sign up with Apple</span>
+                    </button>
+                    <div class="or">or</div>
+                    <button class="btn" id="btn-create" type="button">Create account</button>
+                    <p class="fine">By signing up, you agree to the <a href="#">Terms of Service</a> and <a
+                            href="#">Privacy Policy</a>, including <a href="#">Cookie Use</a>.</p>
+                    <p>Already have an account?</p>
+                    <button class="swap" id="btn-signin">Sign in</button>
+                </div>
+
+                <!-- SIGN IN FORM (hidden initially) -->
+                <div class="card" id="signin-card">
+                    <h2 class="sub" style="margin-top:0">Sign in to X</h2>
+                    <div class="stack">
+                        <button class="btn" type="button" data-provider="google">
+                            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M21.35 12.18c0-.64-.06-1.25-.18-1.84H12v3.49h5.26a4.5 4.5 0 0 1-1.96 2.95v2.45h3.17c1.86-1.71 2.88-4.24 2.88-7.05Z" />
+                                <path
+                                    d="M12 22c2.6 0 4.79-.86 6.39-2.33l-3.17-2.45c-.88.59-2.02.94-3.22.94-2.47 0-4.57-1.67-5.31-3.92H3.36v2.47A9.999 9.999 0 0 0 12 22Z" />
+                                <path
+                                    d="M6.69 14.24A6 6 0 0 1 6.38 12c0-.78.14-1.54.31-2.24V7.29H3.36A10 10 0 0 0 2 12c0 1.53.35 2.97.97 4.24l3.72-1.99Z" />
+                                <path
+                                    d="M12 6.5c1.41 0 2.68.49 3.68 1.46L18.5 5.2A9.5 9.5 0 0 0 12 2 9.999 9.999 0 0 0 3.36 7.29l3.63 2.47C7.73 8.17 9.72 6.5 12 6.5Z" />
+                            </svg>
+                            <span>Sign in with Google</span>
+                        </button>
+                        <button class="btn" type="button" data-provider="apple">
+                            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M16.36 12.48c.02 2.36 2.08 3.15 2.1 3.16-.02.05-.33 1.14-1.09 2.26-.65.95-1.33 1.9-2.38 1.92-1.03.02-1.36-.62-2.54-.62s-1.54.6-2.51.63c-1.01.02-1.79-1.03-2.45-1.98-1.33-1.93-2.35-5.45-.98-7.83.67-1.17 1.86-1.92 3.16-1.95 1.01-.02 1.96.68 2.54.68.58 0 1.73-.84 2.92-.72.5.02 1.91.2 2.81 1.54-.07.04-1.68.99-1.58 2.91Z" />
+                                <path
+                                    d="M14.56 5.3c.54-.66.9-1.58.8-2.5-.77.03-1.69.51-2.24 1.17-.49.57-.92 1.5-.8 2.4.85.07 1.7-.43 2.24-1.07Z" />
+                            </svg>
+                            <span>Sign in with Apple</span>
+                        </button>
+                        <div class="or">or</div>
+                        <div class="field">
+                            <label for="si-identifier">Phone, email, or username</label>
+                            <input id="si-identifier" name="identifier" type="text" autocomplete="username"
+                                placeholder="" />
+                        </div>
+                        <div class="field">
+                            <label for="si-password">Password</label>
+                            <input id="si-password" name="password" type="password" autocomplete="current-password" />
+                        </div>
+                        <button class="btn btn-blue" type="submit" id="btn-signin-submit">Sign in</button>
+                        <div class="fine"><a href="#">Forgot password?</a></div>
+                        <p>Don't have an account?</p>
+                        <button class="swap" id="btn-create">Create Account</button>
+                    </div>
+                </div>
+
+                <!-- SIGN UP FORM (shown when Create account) -->
+                <div class="card" id="signup-card">
+                    <h2 class="sub" style="margin-top:0">Create your account</h2>
+                    <div class="stack">
+                        <div class="field">
+                            <label for="su-name">Name</label>
+                            <input id="su-name" name="nickName" type="text" autocomplete="name" />
+                        </div>
+                        <div class="field">
+                            <label for="su-username">Username</label>
+                            <input id="su-username" name="userName" type="text" autocomplete="username" />
+                        </div>
+                        <div class="field">
+                            <label for="su-email">Email</label>
+                            <input id="su-email" name="email" type="email" autocomplete="email" />
+                        </div>
+                        <div class="field">
+                            <label for="su-password">Password</label>
+                            <input id="su-password" name="password" type="password" autocomplete="new-password" />
+                        </div>
+                        <div class="field">
+                            <label class="sr-only" for="su-dob-d">Date of birth</label>
+                            <div class="dob-row">
+                                <input id="su-dob-m" type="text" inputmode="numeric" placeholder="MM" aria-label="Month"
+                                    maxlength="2">
+                                <input id="su-dob-d" type="text" inputmode="numeric" placeholder="DD" aria-label="Day"
+                                    maxlength="2">
+                                <input id="su-dob-y" type="text" inputmode="numeric" placeholder="YYYY"
+                                    aria-label="Year" maxlength="4">
+                            </div>
+                        </div>
+                        <button class="btn" type="submit" id="btn-signup-submit">Sign up</button>
+                        <p class="fine">By signing up, you agree to the <a href="#">Terms of Service</a> and <a
+                                href="#">Privacy Policy</a>, including <a href="#">Cookie Use</a>.</p>
+                        <p>Already have an account?</p>
+                        <div class="manual">
+                            <button class="swap" id="btn-signin">Sign in</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    <div class="footer" role="contentinfo">
+        |<a href="#">About</a>
+        |<a href="#">Download the X app</a>
+        |<a href="#">Grok</a>
+        |<a href="#">Help Center</a>
+        |<a href="#">Terms of Service</a>
+        |<a href="#">Privacy Policy</a>
+        |<a href="#">Cookie Policy</a>
+        |<a href="#">Accessibility</a>
+        |<a href="#">Ads info</a>
+        |<a href="#">Blog</a>
+        |<a href="#">Careers</a>
+        |<a href="#">Brand Resources</a>
+        |<a href="#">Advertising</a>
+        |<a href="#">Marketing</a>
+        |<a href="#">X for Business</a>
+        |<a href="#">Developer</a>
+        |<a href="#">Directory</a>
+        |<a href="#">Setting</a>
+        <span>© 2025 X Corp.</span>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
