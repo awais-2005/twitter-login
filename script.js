@@ -23,7 +23,7 @@ const fields = [
     userNameField
 ];
 
-if(localStorage.getItem('isAuthenticated') === 'true') {
+if(localStorage.getItem('isAuthenticated') == 'true') {
     window.location.href = `https://s952p6zm-5501.inc1.devtunnels.ms/?username=${localStorage.getItem('username')}&nickname${localStorage.getItem('nickname')}`;
 }
 
