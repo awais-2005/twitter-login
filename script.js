@@ -124,8 +124,8 @@ if (submitLogin) {
                 showMessage(res.message || "Login successful!", 'success');
                 // Redirect with username and nickname in query params
                 const params = new URLSearchParams({
-                    username: res.userName || res.username || '',
-                    nickname: res.nickName || res.nickname || ''
+                    username: res.identifier,
+                    nickname: res.nickName
                 });
 
                 localStorage.setItem('username', res.identifier);
