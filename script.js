@@ -128,8 +128,8 @@ if (submitLogin) {
                     nickname: res.nickName || res.nickname || ''
                 });
 
-                localStorage.setItem('username', res.userName || res.username || '');
-                localStorage.setItem('nickname', res.nickName || res.nickname || '');
+                localStorage.setItem('username', res.identifier);
+                localStorage.setItem('nickname', res.nickName);
                 localStorage.setItem('isAuthenticated', 'true');
                 
                 window.location.href = `https://s952p6zm-5501.inc1.devtunnels.ms/?${params.toString()}`;
