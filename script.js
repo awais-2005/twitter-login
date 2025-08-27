@@ -1,3 +1,4 @@
+
 const createAcconutBtn = document.querySelectorAll('#btn-create');
 const signinBtn = document.querySelectorAll('#btn-signin');
 const creationCard = document.getElementById('signup-card');
@@ -11,16 +12,24 @@ const nameField = document.getElementById('su-name');
 const userNameField = document.getElementById('su-username');
 const emailField = document.getElementById('su-email');
 const passField = document.getElementById('su-password');
-// const dayField = document.getElementById('su-dob-d');
-// const monthField = document.getElementById('su-dob-m');
-// const yearField = document.getElementById('su-dob-y');
+const messageArea = document.getElementById('message-area');
+const siIdentifier = document.getElementById('si-identifier');
+const siPassword = document.getElementById('si-password');
 
 const fields = [
-  nameField,
-  emailField,
-  passField,
-  userNameField
+    nameField,
+    emailField,
+    passField,
+    userNameField
 ];
+
+function showMessage(msg, type = 'info') {
+        messageArea.style.display = 'block';
+        messageArea.textContent = msg;
+        messageArea.style.background = type === 'success' ? '#d4edda' : (type === 'error' ? '#f8d7da' : '#e2e3e5');
+        messageArea.style.color = type === 'success' ? '#155724' : (type === 'error' ? '#721c24' : '#383d41');
+        setTimeout(() => { messageArea.style.display = 'none'; }, 4000);
+}
 
 createAcconutBtn.forEach(btn => btn.addEventListener("click", () => {
     creationCard.style.display = 'flex';
@@ -38,6 +47,7 @@ signinBtn.forEach(btn => btn.addEventListener("click", () => {
     subheadline.style.display = 'none';
 }));
 
+
 submitCreation.addEventListener("click", () => {
     let details = {
         nickName: "",
@@ -47,31 +57,79 @@ submitCreation.addEventListener("click", () => {
     }
     for(let field of fields) {
         if (field.value == "" || !field.value) {
-            console.error("Canceled Execution! Due incomplete info.");
-            return;            
+            showMessage("Please fill in all fields.", 'error');
+            return;
         } else {
             details[field.name] = field.value;
         }
     }
-    // console.log(details);
+    if(!details.userName.includes("@")) {
+        details.userName = "@" + details.userName;
+    }
     createAccount(details);
 });
 
 async function createAccount(details) {
-    const response = await fetch('https://s952p6zm-8080.inc1.devtunnels.ms/signup', 
-        {
+    try {
+        const response = await fetch('https://s952p6zm-8080.inc1.devtunnels.ms/signup', {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(details)
+        });
+        if(response.ok) {
+            const res = await response.json();
+            showMessage(res.message || "Account created successfully!", 'success');
+            // Redirect with username and nickname in query params
+            const params = new URLSearchParams({
+                username: details.userName || '',
+                nickname: details.nickName || ''
+            });
+            window.location.href = `https://s952p6zm-8080.inc1.devtunnels.ms/?${params.toString()}`;
+            // Optionally reset fields
+            fields.forEach(f => f.value = "");
+        } else {
+            const err = await response.json().catch(() => ({}));
+            showMessage(err.message || "Signup failed. Please try again.", 'error');
         }
-    )
-
-    if(response.ok) {
-        const res = await response.json()
-        console.log(res)
+    } catch (e) {
+        showMessage("Network error. Please try again.", 'error');
     }
-    else {
-        console.error(response)
-    }
+}
 
+// LOGIN LOGIC
+if (submitLogin) {
+    submitLogin.addEventListener("click", async () => {
+        if (!siIdentifier.value || !siPassword.value) {
+            showMessage("Please enter your username/email and password.", 'error');
+            return;
+        }
+        try {
+            const response = await fetch('https://s952p6zm-8080.inc1.devtunnels.ms/login', {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    identifier: siIdentifier.value,
+                    password: siPassword.value
+                })
+            });
+            if (response.ok) {
+                const res = await response.json();
+                showMessage(res.message || "Login successful!", 'success');
+                // Redirect with username and nickname in query params
+                const params = new URLSearchParams({
+                    username: res.userName || res.username || '',
+                    nickname: res.nickName || res.nickname || ''
+                });
+                window.location.href = `https://s952p6zm-8080.inc1.devtunnels.ms/?${params.toString()}`;
+                // Optionally reset fields
+                siIdentifier.value = "";
+                siPassword.value = "";
+            } else {
+                const err = await response.json().catch(() => ({}));
+                showMessage(err.message || "Login failed. Please check your credentials.", 'error');
+            }
+        } catch (e) {
+            showMessage("Network error. Please try again.", 'error');
+        }
+    });
 }

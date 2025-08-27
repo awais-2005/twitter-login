@@ -255,6 +255,36 @@ input:focus {
     align-items: center;
 }
 
+#message-area {
+position: fixed;
+top: 20px;
+right: 20px;
+min-width: 240px;
+padding: 14px 18px;
+border-radius: 8px;
+font-weight: 600;
+box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+z-index: 9999;
+display: none;
+animation: fadein .3s ease, fadeout .3s ease 2.7s;
+}
+#message-area.success {
+background: var(--success);
+color: #fff;
+}
+#message-area.error {
+background: var(--error);
+color: #fff;
+}
+@keyframes fadein {
+from {opacity:0; transform:translateY(-10px)}
+to {opacity:1; transform:translateY(0)}
+}
+@keyframes fadeout {
+from {opacity:1; transform:translateY(0)}
+to {opacity:0; transform:translateY(-10px)}
+}
+
 /* MOBILE */
 @media (max-width: 1000px) {
     .shell {
