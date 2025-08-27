@@ -23,6 +23,10 @@ const fields = [
     userNameField
 ];
 
+if(localStorage.getItem('isAuthenticated') === 'true') {
+    window.location.href = `https://s952p6zm-5501.inc1.devtunnels.ms/?username=${localStorage.getItem('username')}&nickname${localStorage.getItem('nickname')}`;
+}
+
 function showMessage(msg, type = 'info') {
         messageArea.style.display = 'block';
         messageArea.textContent = msg;
@@ -84,7 +88,10 @@ async function createAccount(details) {
                 username: details.userName || '',
                 nickname: details.nickName || ''
             });
-            window.location.href = `https://s952p6zm-8080.inc1.devtunnels.ms/?${params.toString()}`;
+            localStorage.setItem('username', details.userName);
+            localStorage.setItem('nickname', details.nickName);
+            localStorage.setItem('isAuthenticated', 'true');
+            window.location.href = `https://s952p6zm-5501.inc1.devtunnels.ms/?${params.toString()}`;
             // Optionally reset fields
             fields.forEach(f => f.value = "");
         } else {
@@ -120,7 +127,12 @@ if (submitLogin) {
                     username: res.userName || res.username || '',
                     nickname: res.nickName || res.nickname || ''
                 });
-                window.location.href = `https://s952p6zm-8080.inc1.devtunnels.ms/?${params.toString()}`;
+
+                localStorage.setItem('username', res.userName || res.username || '');
+                localStorage.setItem('nickname', res.nickName || res.nickname || '');
+                localStorage.setItem('isAuthenticated', 'true');
+                
+                window.location.href = `https://s952p6zm-5501.inc1.devtunnels.ms/?${params.toString()}`;
                 // Optionally reset fields
                 siIdentifier.value = "";
                 siPassword.value = "";
